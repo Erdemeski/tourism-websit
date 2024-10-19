@@ -49,7 +49,7 @@ export default function SignUpPage() {
     <div className='min-h-screen mt-20'>
       <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
         <div className='flex-1'>
-          <Link to="/" className='font-bold dark:text-white text-4xl'>
+          <Link to="#" className='font-bold dark:text-white text-4xl'>
             <span className='px-3 py-1.5 bg-gradient-to-r from-blue-500 via-teal-400 to-cyan-400 rounded-lg text-white'>Erdem's</span>
             Tour
           </Link>

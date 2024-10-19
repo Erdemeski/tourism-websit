@@ -59,6 +59,25 @@ export const signin = async (req, res, next) => {
     }
 }
 
+function replaceTurkishChars(str) {
+    const turkishMap = {
+        'ç': 'c',
+        'Ç': 'C',
+        'ğ': 'g',
+        'Ğ': 'G',
+        'ı': 'i',
+        'İ': 'I',
+        'ö': 'o',
+        'Ö': 'O',
+        'ş': 's',
+        'Ş': 'S',
+        'ü': 'u',
+        'Ü': 'U'
+    };
+
+    return str.split('').map(char => turkishMap[char] || char).join('');
+}
+
 
 export const google = async (req, res, next) => {
     const { email, name, googlePhotoUrl } = req.body;
@@ -74,7 +93,7 @@ export const google = async (req, res, next) => {
             const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
             const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
             const newUser = new User({
-                username: name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4),
+                username: replaceTurkishChars(name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-4)),
                 email,
                 password: hashedPassword,
                 profilePicture: googlePhotoUrl,
