@@ -2,15 +2,20 @@ import { Avatar, Button, Dropdown, DropdownHeader, Navbar, NavbarToggle, TextInp
 import { Link, useLocation } from 'react-router-dom'
 import React from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { FaMoon } from 'react-icons/fa'
+import { FaMoon, FaSun } from 'react-icons/fa'
 import { GrCurrency } from "react-icons/gr"
 import { MdLanguage } from "react-icons/md"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { toggleTheme } from '../redux/theme/themeSlice'
+
 
 
 export default function Header() {
+
+    const dispatch = useDispatch();
     const path = useLocation().pathname;
     const { currentUser } = useSelector(state => state.user);
+    const { theme } = useSelector((state) => state.theme);
 
     return (
         <Navbar className='border-b-2'>
@@ -36,8 +41,8 @@ export default function Header() {
                 <Button className='w-13 h-11  hidden sm:inline' color='gray' pill>
                     <GrCurrency className='w-4 h-4' />
                 </Button>
-                <Button className='w-13 h-11  hidden sm:inline' color='gray' pill>
-                    <FaMoon />
+                <Button className='w-13 h-11  hidden sm:inline' color='gray' pill onClick={() => dispatch(toggleTheme())}>
+                    {theme === 'light' ? <FaSun /> : <FaMoon />}
                 </Button>
                 {currentUser ? (
                     <Dropdown arrowIcon={false} inline label={<Avatar alt='user' img={currentUser.profilePicture} rounded />}>
