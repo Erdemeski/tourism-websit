@@ -4,7 +4,7 @@ import React from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { GrCurrency } from "react-icons/gr"
-import { MdLanguage } from "react-icons/md"
+import { IoLanguage } from "react-icons/io5"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleTheme } from '../redux/theme/themeSlice'
 
@@ -36,7 +36,7 @@ export default function Header() {
             </Button>
             <div className='flex gap-1 md:order-2'>
                 <Button className='w-13 h-11  hidden sm:inline' color='gray' pill>
-                    <MdLanguage className='w-4 h-4' />
+                    <IoLanguage className='w-4 h-4' />
                 </Button>
                 <Button className='w-13 h-11  hidden sm:inline' color='gray' pill>
                     <GrCurrency className='w-4 h-4' />
