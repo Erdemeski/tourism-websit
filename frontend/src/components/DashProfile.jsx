@@ -7,12 +7,13 @@ import 'react-circular-progressbar/dist/styles.css';
 import { app } from '../firebase'
 import { updateStart, updateSuccess, updateFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure, signoutSuccess } from '../redux/user/userSlice.js';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 
 
 export default function DashProfile() {
 
-    const { currentUser, error } = useSelector(state => state.user);
+    const { currentUser, error, loading } = useSelector(state => state.user);
     const [imageFile, setImageFile] = useState(null);
     const [imageFileUrl, setImageFileUrl] = useState(null);
     const [imageUploadProgress, setImageUploadProgress] = useState(null);
@@ -157,9 +158,16 @@ export default function DashProfile() {
                 <TextInput type='text' id='username' placeholder='username' defaultValue={currentUser.username} onChange={handleChange} />
                 <TextInput type='email' id='email' placeholder='email' defaultValue={currentUser.email} onChange={handleChange} />
                 <TextInput type='password' id='password' placeholder='new password' onChange={handleChange} />
-                <Button type='submit' gradientMonochrome="success">
-                    Update
+                <Button type='submit' gradientMonochrome="success" disabled={loading || imageFileUploading}>
+                    {loading ? 'Loading...' : 'Update'}
                 </Button>
+                {
+                    currentUser.isAdmin && (
+                        <Link to={'/create-advertisement'}>
+                            <Button type='button' gradientDuoTone='purpleToPink' outline className='w-full'>Create an advertisement</Button>
+                        </Link>
+                    )
+                }
             </form>
             <div className='text-red-500 flex justify-between mt-8'>
                 <span onClick={() => setShowModal(true)} className='cursor-pointer' >Delete Account</span>
@@ -191,7 +199,9 @@ export default function DashProfile() {
                         <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
                         <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>Are you sure you want to sign out?</h3>
                         <div className='flex justify-center gap-6'>
-                            <Button color='warning' onClick={handleSignout}>Yes, sign out</Button>
+                            <Link to={'/'}>
+                                <Button color='warning' onClick={handleSignout}>Yes, sign out</Button>
+                            </Link>
                             <Button color='gray' onClick={() => setShowSignout(false)}>Cancel</Button>
                         </div>
                     </div>
