@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
+import DashAdvertisements from '../components/DashAdvertisements';
 
 export default function DashboardPage() {
 
@@ -21,6 +22,7 @@ export default function DashboardPage() {
         <DashSidebar />
       </div>
       {tab === 'profile' && <DashProfile />}
+      {tab === 'advertisements' && <DashAdvertisements />}
     </div>
   )
 }

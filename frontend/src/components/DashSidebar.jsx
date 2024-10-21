@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Modal, Sidebar } from 'flowbite-react'
-import { HiArrowSmRight, HiUser } from 'react-icons/hi'
+import { HiArrowSmRight, HiDocumentText, HiUser } from 'react-icons/hi'
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from "../redux/user/userSlice";
-import { useDispatch } from "react-redux";
-import { HiOutlineExclamationCircle } from 'react-icons/hi'
+import { useDispatch, useSelector } from "react-redux";
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 
 
@@ -22,6 +22,7 @@ export default function DashSidebar() {
 
     const dispatch = useDispatch();
     const [showSignout, setShowSignout] = useState(false);
+    const { currentUser } = useSelector(state => state.user);
 
 
     const handleSignout = async () => {
@@ -45,12 +46,17 @@ export default function DashSidebar() {
 
     return (
         <div>
-            <Sidebar className='w-full md:w-56'>
+            <Sidebar className='w-full md:w-56 absolute'>
                 <Sidebar.Items>
-                    <Sidebar.ItemGroup>
+                    <Sidebar.ItemGroup className='flex flex-col gap-1'>
                         <Link to='/dashboard?tab=profile'>
-                            <Sidebar.Item active={tab === 'profile'} icon={HiUser} label={'User'} labelColor='dark' as='div'>Profile</Sidebar.Item>
+                            <Sidebar.Item active={tab === 'profile'} icon={HiUser} label={currentUser.isAdmin ? 'Admin' : 'User'} labelColor={currentUser.isAdmin ? 'red' : 'dark'} as='div'>Profile</Sidebar.Item>
                         </Link>
+                        {currentUser.isAdmin && (
+                            <Link to='/dashboard?tab=advertisements'>
+                                <Sidebar.Item active={tab === 'advertisements'} icon={HiDocumentText} as='div'>Advertisements</Sidebar.Item>
+                            </Link>
+                        )}
                         <Sidebar.Item icon={HiArrowSmRight} className='cursor-pointer' onClick={() => setShowSignout(true)}>Sign Out</Sidebar.Item>
                     </Sidebar.ItemGroup>
                 </Sidebar.Items>
@@ -72,6 +78,6 @@ export default function DashSidebar() {
                 </Modal.Body>
             </Modal>
 
-        </div>
+        </div >
     )
 }
