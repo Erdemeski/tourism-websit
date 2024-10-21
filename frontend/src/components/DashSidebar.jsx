@@ -45,8 +45,8 @@ export default function DashSidebar() {
 
 
     return (
-        <div>
-            <Sidebar className='w-full md:w-56 absolute'>
+        <div className='h-full'>
+            <Sidebar className='w-full md:w-56 h-full'>
                 <Sidebar.Items>
                     <Sidebar.ItemGroup className='flex flex-col gap-1'>
                         <Link to='/dashboard?tab=profile'>
