@@ -65,3 +65,18 @@ export const getAdvertisements = async (req, res, next) => {
     }
 
 };
+
+
+export const deleteAdvertisement = async (req, res, next) => {
+
+    if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+        return next(errorHandler(403, 'You are not allowed to delete this advertisement'));
+    }
+    try {
+        await Advertisement.findByIdAndDelete(req.params.postId);
+        res.status(200).json('The advertisement has been deleted');
+    } catch (error) {
+        next(error);
+    }
+
+};

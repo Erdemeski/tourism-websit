@@ -6,7 +6,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from '../firebase';
 import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateAdvertisement() {
 
@@ -114,6 +114,11 @@ export default function CreateAdvertisement() {
                 <ReactQuill theme='snow' placeholder='Write something for description...' className='h-72 mb-12' required onChange={(value) => {
                     setFormData({ ...formData, content: value })
                 }} />
+                <div className='flex flex-col gap-4 sm:flex-row justify-between'>
+                    <TextInput type='text' placeholder='Location' required id='location' className='flex-1' /* onChange={(e) => setFormData({ ...formData, title: e.target.value  })}*/ />
+                    <TextInput type='text' placeholder='Previous price' required id='previous-price' className='flex-1' /* onChange={(e) => setFormData({ ...formData, title: e.target.value  })}*/ />
+                    <TextInput type='text' placeholder='Current price' required id='current-price' className='flex-1' /* onChange={(e) => setFormData({ ...formData, title: e.target.value  })}*/ />
+                </div>
                 <Button type='submit' gradientDuoTone='purpleToPink'>Publish</Button>
                 {publishError && <Alert className='mt-5' color='failure'>{publishError}</Alert>}
             </form>
