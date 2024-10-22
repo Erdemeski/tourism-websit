@@ -77,6 +77,9 @@ export default function DashAdvertisements() {
               <Table.HeadCell>Date Updated</Table.HeadCell>
               <Table.HeadCell>Advertisement Image</Table.HeadCell>
               <Table.HeadCell>Advertisement Title</Table.HeadCell>
+              <Table.HeadCell>Location</Table.HeadCell>
+              <Table.HeadCell>Previous Price</Table.HeadCell>
+              <Table.HeadCell>Curent Price</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
               <Table.HeadCell><span>Edit</span></Table.HeadCell>
@@ -93,6 +96,15 @@ export default function DashAdvertisements() {
                   </Table.Cell>
                   <Table.Cell>
                     <Link className='font-medium text-gray-900 dark:text-white' to={`/advertisement/${advertisement.slug}`}>{advertisement.title}</Link>
+                  </Table.Cell>
+                  <Table.Cell>
+                    {advertisement.location}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {advertisement.previousPrice}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {advertisement.currentPrice}
                   </Table.Cell>
                   <Table.Cell>
                     {advertisement.category}

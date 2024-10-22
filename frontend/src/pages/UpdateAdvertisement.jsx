@@ -1,22 +1,49 @@
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase';
 import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-export default function CreateAdvertisement() {
+export default function UpdateAdvertisement() {
 
     const [file, setFile] = useState(null);
     const [imageUploadProgress, setImageUploadProgress] = useState(null);
     const [imageUploadError, setImageUploadError] = useState(null);
     const [formData, setFormData] = useState({});
     const [publishError, setPublishError] = useState(null);
+    const { advertisementId } = useParams();
+    const { currentUser } = useSelector((state) => state.user);
 
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        try {
+            const fetchAdvertisement = async () => {
+                const res = await fetch(`/api/advertisement/getadvertisements?advertisementId=${advertisementId}`);
+                const data = await res.json();
+                if (!res.ok) {
+                    console.log(data.message);
+                    setPublishError(data.message);
+                    return;
+                }
+                if (res.ok) {
+                    setPublishError(null);
+                    setFormData(data.advertisements[0]);
+
+                }
+            };
+
+            fetchAdvertisement();
+        } catch (error) {
+            console.log(error.message);
+        }
+    }, [advertisementId]);
 
     const handleUploadImage = async () => {
         try {
@@ -57,8 +84,8 @@ export default function CreateAdvertisement() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('/api/advertisement/create', {
-                method: 'POST',
+            const res = await fetch(`/api/advertisement/updateadvertisement/${formData._id}/${currentUser._id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -80,11 +107,11 @@ export default function CreateAdvertisement() {
 
     return (
         <div className='p-3 max-w-3xl mx-auto min-h-screen'>
-            <h1 className='text-center text-3xl my-7 font-semibold'>Create an advertisement</h1>
+            <h1 className='text-center text-3xl my-7 font-semibold'>Update the advertisement</h1>
             <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
                 <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-                    <TextInput type='text' placeholder='Title' required id='title' className='flex-1' onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
-                    <Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
+                    <TextInput type='text' placeholder='Title' required id='title' value={formData.title} className='flex-1' onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
+                    <Select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
                         <option value="uncategorized">Select a category</option>
                         <option value="hotel">Hotel</option>
                         <option value="tour-trip">Tour/Trip</option>
@@ -111,15 +138,15 @@ export default function CreateAdvertisement() {
                 {formData.image && (
                     <img src={formData.image} alt="upload" className='w-full h-72 object-cover' />
                 )}
-                <ReactQuill theme='snow' placeholder='Write something for description...' className='h-72 mb-12' required onChange={(value) => {
+                <ReactQuill theme='snow' value={formData.content} placeholder='Write something for description...' className='h-72 mb-12' required onChange={(value) => {
                     setFormData({ ...formData, content: value })
                 }} />
-                <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-                    <TextInput type='text' placeholder='Location' required id='location' className='flex-1' onChange={(e) => setFormData({ ...formData, location: e.target.value })} />
-                    <TextInput type='text' placeholder='Previous price' id='previousPrice' className='flex-1' onChange={(e) => setFormData({ ...formData, previousPrice: e.target.value })} />
-                    <TextInput type='text' placeholder='Current price' required id='currentPrice' className='flex-1' onChange={(e) => setFormData({ ...formData, currentPrice: e.target.value })} />
+                <div className='flex flex-col gap-4 sm:flex-row justify-between p-3'>
+                    <TextInput type='text' placeholder='Location' required id='location' value={formData.location} className='flex-1' onChange={(e) => setFormData({ ...formData, location: e.target.value })} />
+                    <TextInput type='text' placeholder='Previous price' id='previousPrice' value={formData.previousPrice} className='flex-1' onChange={(e) => setFormData({ ...formData, previousPrice: e.target.value })} />
+                    <TextInput type='text' placeholder='Current price' required id='currentPrice' value={formData.currentPrice} className='flex-1' onChange={(e) => setFormData({ ...formData, currentPrice: e.target.value })} />
                 </div>
-                <Button type='submit' gradientDuoTone='purpleToPink'>Publish</Button>
+                <Button type='submit' gradientDuoTone='purpleToPink'>Update</Button>
                 {publishError && <Alert className='mt-5' color='failure'>{publishError}</Alert>}
             </form>
         </div>

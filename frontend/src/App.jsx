@@ -11,6 +11,7 @@ import Footer from './components/Footer.jsx'
 import PrivateRoute from './components/PrivateRoute.jsx'
 import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute.jsx'
 import CreateAdvertisement from './pages/CreateAdvertisement.jsx'
+import UpdateAdvertisement from './pages/UpdateAdvertisement.jsx'
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
 
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path="/create-advertisement" element={<CreateAdvertisement />} />
+          <Route path="/update-advertisement/:advertisementId" element={<UpdateAdvertisement />} />
         </Route>
 
         <Route path="/advertisements" element={<AdvertisementsPage />} />

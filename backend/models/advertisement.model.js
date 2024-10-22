@@ -22,6 +22,18 @@ const advertisementSchema = new mongoose.Schema({
         type: String,
         default: 'uncategorized'
     },
+    location: {
+        type: String,
+        required: true
+    },
+    previousPrice: {
+        type: String,
+        default: null
+    },
+    currentPrice: {
+        type: String,
+        required: true
+    },
     slug: {
         type: String,
         required: true,

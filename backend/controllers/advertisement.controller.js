@@ -32,7 +32,7 @@ export const getAdvertisements = async (req, res, next) => {
             ...(req.query.userId && { userId: req.query.userId }),
             ...(req.query.category && { category: req.query.category }),
             ...(req.query.slug && { slug: req.query.slug }),
-            ...(req.query.postId && { _id: req.query.postId }),
+            ...(req.query.advertisementId && { _id: req.query.advertisementId }),
             ...(req.query.searchTerm && {
                 $or: [
                     { title: { $regex: req.query.searchTerm, $options: 'i' } },
@@ -73,8 +73,33 @@ export const deleteAdvertisement = async (req, res, next) => {
         return next(errorHandler(403, 'You are not allowed to delete this advertisement'));
     }
     try {
-        await Advertisement.findByIdAndDelete(req.params.postId);
+        await Advertisement.findByIdAndDelete(req.params.advertisementId);
         res.status(200).json('The advertisement has been deleted');
+    } catch (error) {
+        next(error);
+    }
+
+};
+
+
+export const updateAdvertisement = async (req, res, next) => {
+
+    if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+        return next(errorHandler(403, 'You are not allowed to update this advertisement'));
+    }
+    try {
+        const updatedAdvertisement = await Advertisement.findByIdAndUpdate(req.params.advertisementId, {
+            $set: {
+                title: req.body.title,
+                content: req.body.content,
+                category: req.body.category,
+                image: req.body.image,
+                location: req.body.location,
+                previousPrice: req.body.previousPrice,
+                currentPrice: req.body.currentPrice,
+            }
+        }, { new: true });
+        res.status(200).json(updatedAdvertisement);
     } catch (error) {
         next(error);
     }
