@@ -1,0 +1,8 @@
+.hero__box img, .hero__box video{
+
+    width: 400px;
+    height: 400px;
+    border-radius: 20px;
+    object-fit: cover;
+    
+}

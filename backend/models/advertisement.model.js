@@ -16,7 +16,7 @@ const advertisementSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        default: 'https://www.pngitem.com/pimgs/m/510-5107959_travel-vector-png-travel-vector-images-png-transparent.png'
+        default: 'https://firebasestorage.googleapis.com/v0/b/tourism-website-2a634.appspot.com/o/1730046481809-stock_Image.png?alt=media&token=aeaef6e4-fd41-4777-828c-78bf42e1cb8e'
     },
     category: {
         type: String,
