@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { HiAnnotation, HiArrowNarrowUp, HiDocumentText, HiOutlineUserGroup } from 'react-icons/hi'
 import { HiMiniArrowSmallRight } from 'react-icons/hi2'
 import { useSelector } from 'react-redux'
+import { Button, Table } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 
 export default function DashboardMain() {
@@ -47,7 +49,11 @@ export default function DashboardMain() {
         };
 
         const fetchComments = async () => {
+            try {
 
+            } catch (error) {
+
+            }
         };
 
 
@@ -112,6 +118,87 @@ export default function DashboardMain() {
                 </div>
             </div>
 
+            <div className='flex flex-wrap gap-4 py-3 mx-auto justify-center'>
+                <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
+                    <div className='flex justify-between p-3 text-ms font-semibold'>
+                        <h1 className='text-center p-2'>Recent Users</h1>
+                        <Button outline gradientDuoTone='purpleToPink'>
+                            <Link to={"/dashboard?tab=users"}>See all</Link>
+                        </Button>
+                    </div>
+                    <Table hoverable>
+                        <Table.Head>
+                            <Table.HeadCell>User Image</Table.HeadCell>
+                            <Table.HeadCell>Username</Table.HeadCell>
+                        </Table.Head>
+                        {users && users.map((user) => (
+                            <Table.Body key={user._id} className='divide-y'>
+                                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                                    <Table.Cell>
+                                        <img src={user.profilePicture} alt="user" className='w-10 h-10 rounded-full bg-gray-100' />
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {user.username}
+                                    </Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        ))}
+                    </Table>
+                </div>
+                <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
+                    <div className='flex justify-between p-3 text-ms font-semibold'>
+                        <h1 className='text-center p-2'>Recent Advertisements</h1>
+                        <Button outline gradientDuoTone='purpleToPink'>
+                            <Link to={"/dashboard?tab=advertisements"}>See all</Link>
+                        </Button>
+                    </div>
+                    <Table hoverable>
+                        <Table.Head>
+                            <Table.HeadCell>Advertisement Image</Table.HeadCell>
+                            <Table.HeadCell>Advertisement Title</Table.HeadCell>
+                        </Table.Head>
+                        {advertisements && advertisements.map((advertisement) => (
+                            <Table.Body key={advertisement._id} className='divide-y'>
+                                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                                    <Table.Cell>
+                                        <img src={advertisement.image} alt="user" className='w-20 h-10 object-cover rounded-md bg-gray-100' />
+                                    </Table.Cell>
+                                    <Table.Cell className='w-96'>
+                                        <p className='line-clamp-2'>{advertisement.title}</p>
+                                    </Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        ))}
+                    </Table>
+                </div>
+                <div className='flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800'>
+                    <div className='flex justify-between p-3 text-ms font-semibold'>
+                        <h1 className='text-center p-2'>Recent Comments</h1>
+                        <Button outline gradientDuoTone='purpleToPink'>
+                            <Link to={"/dashboard?tab=comments"}>See all</Link>
+                        </Button>
+                    </div>
+                    <Table hoverable>
+                        <Table.Head>
+                            <Table.HeadCell>Commnet Content</Table.HeadCell>
+                            <Table.HeadCell>Likes</Table.HeadCell>
+                        </Table.Head>
+                        {comments && comments.map((comment) => (
+                            <Table.Body key={comment._id} className='divide-y'>
+                                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                                    <Table.Cell className='w-96'>
+                                        <p className='line-clamp-2'>{comment.content}</p>
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {comment.numberOfLikes}
+                                    </Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        ))}
+                    </Table>
+                </div>
+
+            </div>
         </div>
 
 

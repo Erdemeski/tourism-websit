@@ -91,7 +91,7 @@ export default function DashAdvertisements() {
                   <Table.Cell>{new Date(advertisement.updatedAt).toLocaleDateString() + ' ' + new Date(advertisement.updatedAt).toLocaleTimeString()}</Table.Cell>
                   <Table.Cell>
                     <Link to={`/advertisement/${advertisement.slug}`}>
-                      <img src={advertisement.image} alt={advertisement.title} className='w-20 h-10 object-cover bg-gray-500' />
+                      <img src={advertisement.image} alt={advertisement.title} className='w-20 h-10 object-cover rounded-md bg-gray-100' />
                     </Link>
                   </Table.Cell>
                   <Table.Cell>

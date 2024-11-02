@@ -57,22 +57,27 @@ export default function DashSidebar() {
                         <Link to='/dashboard?tab=profile'>
                             <Sidebar.Item active={tab === 'profile'} icon={HiUser} label={currentUser.isAdmin ? 'Admin' : 'User'} labelColor={currentUser.isAdmin ? 'red' : 'dark'} as='div'>Profile</Sidebar.Item>
                         </Link>
-                        {currentUser.isAdmin && (
-                            <Link to='/dashboard?tab=advertisements'>
-                                <Sidebar.Item active={tab === 'advertisements'} icon={HiDocumentText} as='div'>Advertisements</Sidebar.Item>
-                            </Link>
-                        )}
-                        {currentUser.isAdmin && (
-                            <Link to='/dashboard?tab=users'>
-                                <Sidebar.Item active={tab === 'users'} icon={HiOutlineUserGroup} as='div'>Users</Sidebar.Item>
-                            </Link>
-                        )}
-                        {currentUser.isAdmin && (
-                            <Link to='/dashboard?tab=comments'>
-                                <Sidebar.Item active={tab === 'comments'} icon={HiAnnotation} as='div'>Comments</Sidebar.Item>
-                            </Link>
-                        )}
-
+                    </Sidebar.ItemGroup>
+                    {currentUser.isAdmin && (
+                        <Sidebar.ItemGroup className='flex flex-col gap-1'>
+                            {currentUser.isAdmin && (
+                                <Link to='/dashboard?tab=advertisements'>
+                                    <Sidebar.Item active={tab === 'advertisements'} icon={HiDocumentText} as='div'>Advertisements</Sidebar.Item>
+                                </Link>
+                            )}
+                            {currentUser.isAdmin && (
+                                <Link to='/dashboard?tab=users'>
+                                    <Sidebar.Item active={tab === 'users'} icon={HiOutlineUserGroup} as='div'>Users</Sidebar.Item>
+                                </Link>
+                            )}
+                            {currentUser.isAdmin && (
+                                <Link to='/dashboard?tab=comments'>
+                                    <Sidebar.Item active={tab === 'comments'} icon={HiAnnotation} as='div'>Comments</Sidebar.Item>
+                                </Link>
+                            )}
+                        </Sidebar.ItemGroup>
+                    )}
+                    <Sidebar.ItemGroup className='flex flex-col gap-1'>
                         <Sidebar.Item icon={HiArrowSmRight} className='cursor-pointer' onClick={() => setShowSignout(true)}>Sign Out</Sidebar.Item>
                     </Sidebar.ItemGroup>
                 </Sidebar.Items>

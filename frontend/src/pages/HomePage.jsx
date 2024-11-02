@@ -58,14 +58,14 @@ export default function HomePage() {
           </div>
         </div>
         <div className='flex-1 m-auto'>
-          <div className='flex flex-row gap-4 px-10 lg:pr-32 lg:flex-row items-center justify-center'>
-            <div className='hero__box mt-10'>
+          <div className='flex flex-row gap-3 px-3 sm:px-10 md:px-20 lg:pr-16 lg:pl-10 xl:pr-24 2xl:pr-44 md:flex-row items-center justify-center'>
+            <div className='hero__box mb-10'>
               <img src={heroPhoto1} alt="" />
             </div>
-            <div className='hero__box'>
+            <div className='hero__box mb-20'>
               <video src={heroVideo} alt="" autoPlay loop muted />
             </div>
-            <div className='hero__box mt-20'>
+            <div className='hero__box'>
               <img src={heroPhoto2} alt="" />
             </div>
           </div>

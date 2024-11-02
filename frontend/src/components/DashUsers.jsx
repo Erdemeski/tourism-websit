@@ -88,7 +88,7 @@ export default function DashUsers() {
                                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                                     <Table.Cell>{new Date(user.createdAt).toLocaleDateString() + ' ' + new Date(user.createdAt).toLocaleTimeString()}</Table.Cell>
                                     <Table.Cell>
-                                        <img src={user.profilePicture} alt={user.username} className='w-12 h-12 object-cover bg-gray-500 rounded-full' />
+                                        <img src={user.profilePicture} alt={user.username} className='w-10 h-10 object-cover bg-gray-100 rounded-full' />
                                     </Table.Cell>
                                     <Table.Cell>
                                         {user.username}
