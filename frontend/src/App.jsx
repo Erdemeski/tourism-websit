@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute.jsx'
 import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute.jsx'
 import CreateAdvertisement from './pages/CreateAdvertisement.jsx'
 import UpdateAdvertisement from './pages/UpdateAdvertisement.jsx'
+import AdvertisementDetailsPage from './pages/AdvertisementDetailsPage.jsx'
 
 export default function App() {
   return (
@@ -33,6 +34,8 @@ export default function App() {
         </Route>
 
         <Route path="/advertisements" element={<AdvertisementsPage />} />
+        <Route path="/advertisement/:postSlug" element={<AdvertisementDetailsPage />} />
+
 
       </Routes>
       <Footer />

@@ -38,9 +38,6 @@ export default function Header() {
 
     const { currency } = useSelector((state) => state.currency);
 
-    console.log(language);
-    console.log(currency);
-
 
     const handleSignout = async () => {
         try {
