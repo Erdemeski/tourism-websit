@@ -5,9 +5,11 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { FaMoon, FaSun, FaPoundSign } from 'react-icons/fa'
 import { FaTurkishLiraSign } from 'react-icons/fa6'
 import { GrCurrency } from "react-icons/gr"
-import { IoLanguage } from "react-icons/io5"
+// import { IoLanguage } from "react-icons/io5"
 import { useSelector, useDispatch } from "react-redux"
 import { toggleTheme } from '../redux/theme/themeSlice'
+import { toggleLanguage } from '../redux/page_Language/languageSlice';
+import { selectCurrency } from '../redux/currency/currencySlice';
 import { signoutSuccess } from "../redux/user/userSlice";
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 import en from "../assets/lang_Icons/en.png";
@@ -26,19 +28,18 @@ export default function Header() {
     const { theme } = useSelector((state) => state.theme);
     const [showSignout, setShowSignout] = useState(false);
 
-    const [lang, setLang] = useState('en')
-    const [curr, setCurr] = useState('gbp')
-    console.log(lang)
+    const { language } = useSelector((state) => state.language);
 
-    const { t, i18n } = useTranslation()
-    const changeLanguage = (lng) => {
-        //i18n.changeLanguage(lng);
-        setLang(lng);
-        console.log(lng);
-    }
+    /*     const { t, i18n } = useTranslation()
+        const changeLanguage = (lng) => {
+            i18n.changeLanguage(lng);
+            console.log(lng);
+        } */
 
+    const { currency } = useSelector((state) => state.currency);
 
-
+    console.log(language);
+    console.log(currency);
 
 
     const handleSignout = async () => {
@@ -79,43 +80,50 @@ export default function Header() {
                 </Button>
                 <div className='flex gap-1 md:order-2'>
 
-                    <Dropdown className='hidden sm:inline' label="" dismissOnClick={false} renderTrigger={() => <span>
+                    {/*                     <Dropdown className='hidden sm:inline' label="" dismissOnClick={false} renderTrigger={() => <span>
                         <Button className='w-13 h-11' color='gray' pill>
                             <IoLanguage className='mt-0.5 w-4 h-4 flex items-center' />
                         </Button>
                     </span>}>
-                        <Dropdown.Item active={lang == 'en'} onClick={() => changeLanguage('en')} >
+                        <Dropdown.Item className={lang === 'en' ? 'dark:bg-slate-600 bg-gray-100' : ''} onClick={() => changeLanguage('en')} >
                             <div className='flex justify-center items-center'>
                                 <img src={en} alt="" className='w-6 h-6 mr-2' />
                                 <span className='flex justify-center'>English</span>
                             </div>
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => changeLanguage('tr')} >
+                        <Dropdown.Item className={lang === 'tr' ? 'dark:bg-slate-600 bg-gray-100' : ''} onClick={() => changeLanguage('tr')} >
                             <div className='flex justify-center items-center'>
                                 <img src={tr} alt="" className='w-6 h-6 mr-2' />
                                 <span className='flex justify-center'>Türkçe</span>
                             </div>
                         </Dropdown.Item>
                     </Dropdown>
-
+ */}
                     <Dropdown className='hidden sm:inline' label="" dismissOnClick={false} renderTrigger={() => <span>
                         <Button className='w-13 h-11  hidden sm:inline' color='gray' pill>
                             <GrCurrency className='w-4 h-4' />
                         </Button>
                     </span>}>
-                        <Dropdown.Item>
+                        <Dropdown.Item className={currency === 'gbp' ? 'dark:bg-slate-600 bg-gray-100' : ''} onClick={() => dispatch(selectCurrency('gbp'))}>
                             <div className='flex justify-center items-center'>
                                 <FaPoundSign className='w-6 h-6 mr-1' />
                                 <span className='flex justify-center'>GBP</span>
                             </div>
                         </Dropdown.Item>
-                        <Dropdown.Item>
+                        <Dropdown.Item className={currency === 'try' ? 'dark:bg-slate-600 bg-gray-100' : ''} onClick={() => dispatch(selectCurrency('try'))}>
                             <div className='flex justify-center items-center'>
                                 <FaTurkishLiraSign className='w-6 h-6 mr-1' />
                                 <span className='flex justify-center'>TRY</span>
                             </div>
                         </Dropdown.Item>
                     </Dropdown>
+
+                    <Button className='w-13 h-11  hidden sm:inline' color='gray' pill onClick={() => dispatch(toggleLanguage())}>
+                        {language === 'en' ?
+                            <div className='flex justify-center items-center'><img src={en} alt="" className='w-4 h-4' /></div>
+                            :
+                            <div className='flex justify-center items-center'><img src={tr} alt="" className='w-4 h-4' /></div>}
+                    </Button>
 
 
                     <Button className='w-13 h-11  hidden sm:inline' color='gray' pill onClick={() => dispatch(toggleTheme())}>
