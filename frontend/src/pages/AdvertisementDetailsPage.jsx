@@ -2,6 +2,8 @@ import { Spinner } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BookingForm from '../components/BookingForm';
+import AdvertisementDetails from "../components/AdvertisementDetails";
+import { Badge } from "flowbite-react";
 
 
 export default function AdvertisementDetailsPage() {
@@ -10,6 +12,7 @@ export default function AdvertisementDetailsPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [advertisement, setAdvertisement] = useState(null);
+    console.log(advertisement);
 
 
     useEffect(() => {
@@ -34,6 +37,7 @@ export default function AdvertisementDetailsPage() {
             }
         };
         fetchAdvertisement();
+        window.scrollTo(0, 0);
     }, [postSlug]);
 
     if (loading) return (
@@ -41,21 +45,23 @@ export default function AdvertisementDetailsPage() {
             <Spinner size='xl' />
         </div>
     );
-    return (
 
-        <div className='p-3 max-w-screen-2xl mx-auto min-h-screen'>
-            <h1 className='text-center text-3xl my-7 font-semibold'>advertisement name</h1>
-            <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-                <div className='flex-1'>
-                    details
+
+    return (
+        <div className='p-3 min-h-screen max-w-screen-2xl mx-auto flex flex-col'>
+            <h1 className='text-center text-3xl mt-7 mb-5 font-serif font-semibold lg:text-4xl'>{advertisement && advertisement.title}</h1 >
+            <div className='self-center mb-10'>
+                <Badge color='gray' size='sm'>{advertisement && advertisement.category}</Badge>
+            </div>
+            <div className='flex flex-col gap-4 lg:flex-row'>
+                <div className='lg:w-3/5 w-full'>
+                    <AdvertisementDetails advertisement={advertisement} />
                 </div>
 
-                <div className='max-w-lg sticky'>
-                    <BookingForm />
+                <div className='lg:w-2/5 w-full'>
+                    <BookingForm advertisement={advertisement} />
                 </div>
             </div>
-        </div>
-
-
+        </div >
     )
 }
