@@ -70,7 +70,16 @@ export default function SignInPage() {
               <TextInput
                 type='password'
                 placeholder='**********'
-                id='password' onChange={handleChange} />
+                id='password' onChange={handleChange}
+                helperText={
+                  <>
+                    We’ll never share your details. Read our
+                    <a href="#" className="ml-1 font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                      Privacy Policy
+                    </a>
+                    .
+                  </>
+                } />
             </div>
             <Button gradientDuoTone='purpleToPink' type='submit' disabled={loading}>{
               loading ? (
