@@ -49,7 +49,7 @@ export default function AdvertisementDetailsPage() {
 
     return (
         <div className='p-3 min-h-screen max-w-screen-2xl mx-auto flex flex-col'>
-            <h1 className='text-center text-3xl mt-7 mb-5 font-serif font-semibold lg:text-4xl'>{advertisement && advertisement.title}</h1 >
+            <h1 className='text-center text-3xl mt-7 mb-5 font-bold lg:text-4xl'>{advertisement && advertisement.title}</h1 >
             <div className='self-center mb-10'>
                 <Badge color='gray' size='sm'>{advertisement && advertisement.category}</Badge>
             </div>

@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import { Button, Modal, Table } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
+import { FaCheck, FaTimes } from "react-icons/fa";
+
 
 export default function DashAdvertisements() {
 
@@ -75,11 +77,12 @@ export default function DashAdvertisements() {
           <Table hoverable className='shadow-md'>
             <Table.Head>
               <Table.HeadCell>Date Updated</Table.HeadCell>
+              <Table.HeadCell>Visible</Table.HeadCell>
               <Table.HeadCell>Advertisement Image</Table.HeadCell>
               <Table.HeadCell>Advertisement Title</Table.HeadCell>
               <Table.HeadCell>Location</Table.HeadCell>
-              <Table.HeadCell>Previous Price</Table.HeadCell>
-              <Table.HeadCell>Curent Price</Table.HeadCell>
+              <Table.HeadCell>Previous Prices</Table.HeadCell>
+              <Table.HeadCell>Curent Prices</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
               <Table.HeadCell><span>Edit</span></Table.HeadCell>
@@ -89,6 +92,9 @@ export default function DashAdvertisements() {
               <Table.Body key={advertisement._id} className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>{new Date(advertisement.updatedAt).toLocaleDateString() + ' ' + new Date(advertisement.updatedAt).toLocaleTimeString()}</Table.Cell>
+                  <Table.Cell>
+                    {advertisement.isActive ? (<FaCheck className='text-green-500' />) : (<FaTimes className='text-red-500' />)}
+                  </Table.Cell>
                   <Table.Cell>
                     <Link to={`/advertisement/${advertisement.slug}`}>
                       <img src={advertisement.image} alt={advertisement.title} className='w-20 h-10 object-cover rounded-md bg-gray-100' />
@@ -101,10 +107,14 @@ export default function DashAdvertisements() {
                     {advertisement.location}
                   </Table.Cell>
                   <Table.Cell>
-                    {advertisement.previousPrice}
+                    {advertisement.previousPriceGBP && ("£ " + advertisement.previousPriceGBP)}
+                    <br />
+                    {advertisement.previousPriceTRY && ("₺ " + advertisement.previousPriceTRY)}
                   </Table.Cell>
                   <Table.Cell>
-                    {advertisement.currentPrice}
+                    {advertisement.currentPriceGBP && ("£ " + advertisement.currentPriceGBP)}
+                    <br />
+                    {advertisement.currentPriceTRY && ("₺ " + advertisement.currentPriceTRY)}
                   </Table.Cell>
                   <Table.Cell>
                     {advertisement.category}

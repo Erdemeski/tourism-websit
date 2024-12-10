@@ -1,5 +1,5 @@
 import { Accordion, Button, Card, Checkbox, Datepicker, Dropdown, HR, Label, Select, TextInput } from 'flowbite-react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GrCurrency } from 'react-icons/gr';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrency } from '../redux/currency/currencySlice';
@@ -7,8 +7,6 @@ import { FaPoundSign } from 'react-icons/fa';
 import { FaTurkishLiraSign } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import '../styles/home.css';
-
-
 
 
 export default function BookingForm({ advertisement }) {
@@ -25,6 +23,37 @@ export default function BookingForm({ advertisement }) {
 
     console.log(formData);
 
+    const [previousPrice, setPreviousPrice] = useState();
+    const [currentPrice, setCurrentPrice] = useState();
+    const [childDiscount, setChildDiscount] = useState();
+    const [infantPrice, setInfantPrice] = useState();
+
+    useEffect(() => {
+        try {
+            const definePriceInfo = async () => {
+                if (!currency) {
+                    console.log(data.message);
+                    setPublishError(data.message);
+                    return;
+                }
+                if (currency === 'gbp') {
+                    setPreviousPrice(advertisement.previousPriceGBP);
+                    setCurrentPrice(advertisement.currentPriceGBP);
+                    setChildDiscount((advertisement.childDiscountGBP.replace(',', '.')) / 100);
+                    setInfantPrice(advertisement.infantPriceGBP);
+                }
+                if (currency === 'try') {
+                    setPreviousPrice(advertisement.previousPriceTRY);
+                    setCurrentPrice(advertisement.currentPriceTRY);
+                    setChildDiscount((advertisement.childDiscountTRY.replace(',', '.')) / 100);
+                    setInfantPrice(advertisement.infantPriceTRY);
+                }
+            };
+            definePriceInfo();
+        } catch (error) {
+            console.log(error.message);
+        }
+    })
 
 
     return (
@@ -55,7 +84,7 @@ export default function BookingForm({ advertisement }) {
                         {currency !== 'try' && (
                             <span className="text-3xl font-semibold">£</span>
                         )}
-                        <span className="text-5xl font-extrabold tracking-tight">{advertisement && (parseFloat(advertisement.currentPrice.replace(',', '.')))}</span>
+                        <span className="text-5xl font-extrabold tracking-tight">{currentPrice && (parseFloat(currentPrice.replace(',', '.')))}</span>
                         <span className="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">/person</span>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -170,7 +199,7 @@ export default function BookingForm({ advertisement }) {
                             </Select>
                             <div className="text-gray-500 dark:text-gray-300">
                                 <span className="text-xs font-normal">
-                                    You have <span className="font-medium">% 25</span> discount for ages less than 5.
+                                    You have <span className="font-medium">% {childDiscount * 100}</span> discount for ages less than 5.
                                 </span>
                             </div>
                         </div>
@@ -200,7 +229,7 @@ export default function BookingForm({ advertisement }) {
                                         {currency !== 'try' && (
                                             <span className="text-3xl font-semibold">£</span>
                                         )}
-                                        <span className="text-5xl font-extrabold tracking-tight">{advertisement && (((((parseFloat(advertisement.currentPrice.replace(',', '.'))) * 0.75).toFixed(2)) * formData.child_Count) + ((parseFloat(advertisement.currentPrice.replace(',', '.'))) * formData.adult_Count))}</span>
+                                        <span className="text-5xl font-extrabold tracking-tight">{currentPrice && ((((parseFloat(currentPrice.replace(',', '.'))) * (1.0 - (parseFloat(childDiscount)))) * formData.child_Count) + ((parseFloat(currentPrice.replace(',', '.'))) * formData.adult_Count)).toFixed(2)}</span>
                                         <span className="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">total</span>
                                     </div>
                                 </div>
@@ -215,7 +244,7 @@ export default function BookingForm({ advertisement }) {
                                             {currency !== 'try' && (
                                                 <span className="text-xl font-semibold">£</span>
                                             )}
-                                            <span className="text-2xl font-extrabold tracking-tight">{advertisement && (parseFloat(advertisement.currentPrice.replace(',', '.')))}</span>
+                                            <span className="text-2xl font-extrabold tracking-tight">{currentPrice && (parseFloat(currentPrice.replace(',', '.')))}</span>
                                             <span className="ml-1 text-lg font-normal text-gray-500 dark:text-gray-400">x {formData.adult_Count} Adult(s)</span>
                                         </div>
                                         <div>
@@ -225,7 +254,7 @@ export default function BookingForm({ advertisement }) {
                                             {currency !== 'try' && (
                                                 <span className="text-xl font-semibold">£</span>
                                             )}
-                                            <span className="text-3xl font-extrabold tracking-tight">{advertisement && (parseFloat(advertisement.currentPrice.replace(',', '.'))) * formData.adult_Count}</span>
+                                            <span className="text-3xl font-extrabold tracking-tight">{currentPrice && (parseFloat(currentPrice.replace(',', '.')) * formData.adult_Count).toFixed(2)}</span>
                                         </div>
 
                                     </div>
@@ -237,7 +266,7 @@ export default function BookingForm({ advertisement }) {
                                             {currency !== 'try' && (
                                                 <span className="text-xl font-semibold">£</span>
                                             )}
-                                            <span className="text-2xl font-extrabold tracking-tight">{advertisement && (parseFloat(advertisement.currentPrice.replace(',', '.')) * 0.75).toFixed(2)}</span>
+                                            <span className="text-2xl font-extrabold tracking-tight">{currentPrice && (parseFloat(currentPrice.replace(',', '.')) * (1.0 - (parseFloat(childDiscount)))).toFixed(2)}</span>
                                             <span className="ml-1 text-lg font-normal text-gray-500 dark:text-gray-400">x {formData.child_Count} Child(ren)</span>
                                         </div>
                                         <div>
@@ -247,7 +276,7 @@ export default function BookingForm({ advertisement }) {
                                             {currency !== 'try' && (
                                                 <span className="text-xl font-semibold">£</span>
                                             )}
-                                            <span className="text-3xl font-extrabold tracking-tight">{advertisement && (((parseFloat(advertisement.currentPrice.replace(',', '.')) * 0.75).toFixed(2)) * formData.child_Count)}</span>
+                                            <span className="text-3xl font-extrabold tracking-tight">{currentPrice && ((parseFloat(currentPrice.replace(',', '.')) * (1.0 - (parseFloat(childDiscount)))) * formData.child_Count).toFixed(2)}</span>
                                         </div>
                                     </div>
                                 </Accordion.Content>
@@ -267,7 +296,46 @@ export default function BookingForm({ advertisement }) {
                             . (required)
                         </Label>
                     </div>
-                    <Button disabled={!currentUser} type="submit">Book now!</Button>
+                    <Button disabled={!currentUser} type="submit">Reserve now!</Button>
+
+                    <div className='p-2'>
+                        <ul className="mt-2 space-y-3">
+                            <li className="flex space-x-3">
+                                <svg
+                                    className="h-5 w-5 shrink-0 text-cyan-600 dark:text-cyan-500"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                                    Free Cancelation
+                                </span>
+                            </li>
+                            <li className="flex space-x-3">
+                                <svg
+                                    className="h-5 w-5 shrink-0 text-cyan-600 dark:text-cyan-500"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                                    Reserve Now And Pay Later
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
                 </form>
             </div>
         </Card >
