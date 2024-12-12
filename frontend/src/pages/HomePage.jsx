@@ -3,6 +3,7 @@ import '../styles/home.css'
 import heroPhoto1 from "../assets/home_page/hero_photo1.jpg";
 import heroPhoto2 from "../assets/home_page/hero_photo2.jpg";
 import heroVideo from "../assets/home_page/hero_video.mp4";
+import { useSelector } from 'react-redux';
 
 const stats = [
   { id: 1, name: 'We host every year', value: '>500 tourists' },
@@ -11,6 +12,8 @@ const stats = [
 ]
 
 export default function HomePage() {
+
+  const { currentUser } = useSelector((state) => state.user);
 
   return (
     <div>
@@ -43,8 +46,8 @@ export default function HomePage() {
                 >
                   Get started
                 </a>
-                <a href="#" className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-200">
-                  Learn more <span aria-hidden="true">→</span>
+                <a href={currentUser ? "/dashboard?tab=profile" : "/sign-in"} className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-200" >
+                  {currentUser ? "Go to profile" : "Sign in"} <span aria-hidden="true">→</span>
                 </a>
               </div>
             </div>

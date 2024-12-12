@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom'
 import BookingForm from '../components/BookingForm';
 import AdvertisementDetails from "../components/AdvertisementDetails";
 import { Badge } from "flowbite-react";
+import NotFound from '../pages/NotFound';
 
 
 export default function AdvertisementDetailsPage() {
 
-    const { postSlug } = useParams()
+    const { advSlug } = useParams()
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [advertisement, setAdvertisement] = useState(null);
@@ -19,7 +20,7 @@ export default function AdvertisementDetailsPage() {
         const fetchAdvertisement = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`/api/advertisement/getadvertisements?slug=${postSlug}`);
+                const res = await fetch(`/api/advertisement/getadvertisements?slug=${advSlug}`);
                 const data = await res.json();
                 if (!res.ok) {
                     setError(true);
@@ -38,7 +39,7 @@ export default function AdvertisementDetailsPage() {
         };
         fetchAdvertisement();
         window.scrollTo(0, 0);
-    }, [postSlug]);
+    }, [advSlug]);
 
     if (loading) return (
         <div className='flex justify-center items-center min-h-screen'>
@@ -46,6 +47,7 @@ export default function AdvertisementDetailsPage() {
         </div>
     );
 
+    if (error || !advertisement) { return <NotFound />; }
 
     return (
         <div className='p-3 min-h-screen max-w-screen-2xl mx-auto flex flex-col'>

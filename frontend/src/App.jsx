@@ -13,12 +13,14 @@ import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute.jsx'
 import CreateAdvertisement from './pages/CreateAdvertisement.jsx'
 import UpdateAdvertisement from './pages/UpdateAdvertisement.jsx'
 import AdvertisementDetailsPage from './pages/AdvertisementDetailsPage.jsx'
+import NotFound from './pages/NotFound.jsx'
 
 export default function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
@@ -34,7 +36,7 @@ export default function App() {
         </Route>
 
         <Route path="/advertisements" element={<AdvertisementsPage />} />
-        <Route path="/advertisement/:postSlug" element={<AdvertisementDetailsPage />} />
+        <Route path="/advertisement/:advSlug" element={<AdvertisementDetailsPage />} />
 
 
       </Routes>

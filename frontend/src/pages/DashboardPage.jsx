@@ -7,6 +7,7 @@ import DashUsers from '../components/DashUsers';
 import DashComments from '../components/DashComments';
 import DashboardMain from '../components/DashboardMain';
 import { useSelector } from 'react-redux';
+import NotFound from './NotFound';
 
 export default function DashboardPage() {
 
@@ -29,18 +30,22 @@ export default function DashboardPage() {
     }
   }, [location.search]);
 
+  const renderTabContent = () => {
+    if (tab === 'profile') return <DashProfile />;
+    if (currentUser.isAdmin && tab === 'advertisements') return <DashAdvertisements />;
+    if (currentUser.isAdmin && tab === 'users') return <DashUsers />;
+    if (currentUser.isAdmin && tab === 'comments') return <DashComments />;
+    if (currentUser.isAdmin && tab === 'dashboard') return <DashboardMain />;
+    return <NotFound />;
+  }
+
 
   return (
     <div className='min-h-screen flex flex-col md:flex-row'>
       <div className='md:w-56'>
         <DashSidebar />
       </div>
-      {tab === 'profile' && <DashProfile />}
-      {currentUser.isAdmin && tab === 'advertisements' && <DashAdvertisements />}
-      {currentUser.isAdmin && tab === 'users' && <DashUsers />}
-      {currentUser.isAdmin && tab === 'comments' && <DashComments />}
-      {currentUser.isAdmin && tab === 'dashboard' && <DashboardMain />}
-
+      {renderTabContent()}
     </div>
   )
 }
