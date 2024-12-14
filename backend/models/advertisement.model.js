@@ -30,16 +30,17 @@ const advertisementSchema = new mongoose.Schema({
     },
     content: {
         type: String,
-        required: true
+        default: null
     },
     includings: {
         type: String,
         default: null
     },
-    whatToExpect: {
-        type: String,
-        default: null
-    },
+    /*     whatToExpect: {
+            type: String,
+            default: null
+        },
+     */
     additionalInfos: {
         type: String,
         default: null

@@ -139,7 +139,7 @@ export default function CreateAdvertisement() {
                         <Label htmlFor="contentLbl" className="block text-sm font-medium leading-6">
                             Overview
                         </Label>
-                        <ReactQuill theme='snow' placeholder='Write something for "Overview" part...' className='h-48 mb-12' required onChange={(value) => {
+                        <ReactQuill theme='snow' placeholder='Write something for "Overview" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, content: value })
                         }} />
                     </div>
@@ -151,14 +151,14 @@ export default function CreateAdvertisement() {
                             setFormData({ ...formData, includings: value })
                         }} />
                     </div>
-                    <div>
+{/*                     <div>
                         <Label htmlFor="whatToExpectLbl" className="block text-sm font-medium leading-6">
                             What to Expect
                         </Label>
                         <ReactQuill theme='snow' placeholder='Write something for "What To Expect" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, whatToExpect: value })
                         }} />
-                    </div>
+                    </div> */}
                     <div>
                         <Label htmlFor="additionalInfosLbl" className="block text-sm font-medium leading-6">
                             Additional Info
@@ -242,7 +242,7 @@ export default function CreateAdvertisement() {
                         <Label htmlFor="locationCoordinatesLbl" className="block text-sm font-medium leading-6">
                             Location (Coordinates)
                         </Label>
-                        <TextInput sizing='sm' type='text' placeholder='Coordinates' id='coordinates' onChange={(e) => setFormData({ ...formData, coordinates: e.target.value })} />
+                        <TextInput sizing='sm' type='text' placeholder='37.926068, 29.125488' id='coordinates' onChange={(e) => setFormData({ ...formData, coordinates: e.target.value })} />
                     </div>
                 </div>
 

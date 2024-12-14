@@ -8,6 +8,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Quill from '../components/Quill';
 
 export default function UpdateAdvertisement() {
 
@@ -21,7 +22,11 @@ export default function UpdateAdvertisement() {
 
     const navigate = useNavigate();
 
-
+    /*     const [contentHTML, setContentHTML] = useState('');
+        const [includingsHTML, setIncludingsHTML] = useState('');
+        const [whatToExpectHTML, setWhatToExpectHTML] = useState('');
+        const [additionalInfosHTML, setAdditionalInfosHTML] = useState('');
+     */
     useEffect(() => {
         try {
             const fetchAdvertisement = async () => {
@@ -35,7 +40,6 @@ export default function UpdateAdvertisement() {
                 if (res.ok) {
                     setPublishError(null);
                     setFormData(data.advertisements[0]);
-
                 }
             };
 
@@ -44,7 +48,11 @@ export default function UpdateAdvertisement() {
             console.log(error.message);
         }
     }, [advertisementId]);
-
+    /*     setContentHTML(formData.content);
+        setIncludingsHTML(formData.includings);
+        setWhatToExpectHTML(formData.whatToExpect);
+        setAdditionalInfosHTML(formData.additionalInfos);
+     */
     const handleUploadImage = async () => {
         try {
             if (!file) {
@@ -166,33 +174,45 @@ export default function UpdateAdvertisement() {
                         <Label htmlFor="contentLbl" className="block text-sm font-medium leading-6">
                             Overview
                         </Label>
-                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Overview" part...' className='h-48 mb-12' required onChange={(value) => {
+                        <Quill referance={formData.content} onChange={(value) => { setFormData({ ...formData, content: value }) }} />
+
+                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Overview" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, content: value })
-                        }} />
+                        }} /> */}
+
                     </div>
                     <div>
                         <Label htmlFor="includingsLbl" className="block text-sm font-medium leading-6">
                             What's Included
                         </Label>
-                        <ReactQuill theme='snow' value={formData.includings} placeholder='Write something for "What is Included" part...' className='h-48 mb-12' onChange={(value) => {
+                        <Quill referance={formData.includings} onChange={(value) => { setFormData({ ...formData, includings: value }) }} />
+
+                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "What is Included" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, includings: value })
                         }} />
+ */}
                     </div>
-                    <div>
+                    {/*                     <div>
                         <Label htmlFor="whatToExpectLbl" className="block text-sm font-medium leading-6">
                             What to Expect
                         </Label>
-                        <ReactQuill theme='snow' value={formData.whatToExpect} placeholder='Write something for "What To Expect" part...' className='h-48 mb-12' onChange={(value) => {
+                        <Quill referance={formData.whatToExpect} onChange={(value) => { setFormData({ ...formData, whatToExpect: value }) }} />
+
+                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "What To Expect" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, whatToExpect: value })
                         }} />
-                    </div>
+
+                    </div> */}
                     <div>
                         <Label htmlFor="additionalInfosLbl" className="block text-sm font-medium leading-6">
                             Additional Info
                         </Label>
-                        <ReactQuill theme='snow' value={formData.additionalInfos} placeholder='Write something for "Additional Infos" part...' className='h-48 mb-12' onChange={(value) => {
+                        <Quill referance={formData.additionalInfos} onChange={(value) => { setFormData({ ...formData, additionalInfos: value }) }} />
+
+                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Additional Infos" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, additionalInfos: value })
-                        }} />
+                        }} /> */}
+
                     </div>
                 </div>
 
@@ -269,7 +289,7 @@ export default function UpdateAdvertisement() {
                         <Label htmlFor="locationCoordinatesLbl" className="block text-sm font-medium leading-6">
                             Location (Coordinates)
                         </Label>
-                        <TextInput sizing='sm' type='text' placeholder='Coordinates' id='coordinates' value={formData.coordinates} onChange={(e) => setFormData({ ...formData, coordinates: e.target.value })} />
+                        <TextInput sizing='sm' type='text' placeholder='37.926068, 29.125488' id='coordinates' value={formData.coordinates} onChange={(e) => setFormData({ ...formData, coordinates: e.target.value })} />
                     </div>
                 </div>
 
