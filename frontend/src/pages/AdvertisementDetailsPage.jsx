@@ -38,7 +38,6 @@ export default function AdvertisementDetailsPage() {
             }
         };
         fetchAdvertisement();
-        window.scrollTo(0, 0);
     }, [advSlug]);
 
     if (loading) return (

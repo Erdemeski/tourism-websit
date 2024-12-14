@@ -14,10 +14,12 @@ import CreateAdvertisement from './pages/CreateAdvertisement.jsx'
 import UpdateAdvertisement from './pages/UpdateAdvertisement.jsx'
 import AdvertisementDetailsPage from './pages/AdvertisementDetailsPage.jsx'
 import NotFound from './pages/NotFound.jsx'
+import ScrollToTop from './components/ScrollToTop.jsx'
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="*" element={<NotFound />} />

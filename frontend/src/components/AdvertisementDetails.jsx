@@ -4,6 +4,7 @@ import { IoLocationSharp } from "react-icons/io5"
 import { useSelector } from 'react-redux';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import CommentSection from './CommentSection';
 
 
 
@@ -133,9 +134,8 @@ export default function AdvertisementDetails({ advertisement }) {
                     </div>
                 </div>
                 <div className='bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md p-3'>
-                    <h1>comments</h1>
+                    <CommentSection advertisementId={advertisement._id} />
                 </div>
-
             </div>
         </div>
     )
