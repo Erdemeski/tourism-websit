@@ -96,10 +96,11 @@ export const updateAdvertisement = async (req, res, next) => {
                 category: req.body.category,
                 image: req.body.image,
                 content: req.body.content,
+                /*
                 includings: req.body.includings,
-                /*                 whatToExpect: req.body.whatToExpect,
-                 */
+                whatToExpect: req.body.whatToExpect,
                 additionalInfos: req.body.additionalInfos,
+                */
                 isPayLater: req.body.isPayLater,
                 isMobileTicket: req.body.isMobileTicket,
                 isPickUp: req.body.isPickUp,

@@ -172,26 +172,25 @@ export default function UpdateAdvertisement() {
                 <div className='flex flex-col gap-4 justify-between p-3 border-2 border-gray-300 border-dashed'>
                     <div>
                         <Label htmlFor="contentLbl" className="block text-sm font-medium leading-6">
-                            Overview
+                            Content
                         </Label>
-                        <Quill referance={formData.content} onChange={(value) => { setFormData({ ...formData, content: value }) }} />
-
-                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Overview" part...' className='h-48 mb-12' onChange={(value) => {
+                        {/*                         <Quill referance={formData.content} onChange={(value) => { setFormData({ ...formData, content: value }) }} />
+ */}
+                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Overview" part...' className='h-72 mb-12' required onChange={(value) => {
                             setFormData({ ...formData, content: value })
-                        }} /> */}
+                        }} />
 
                     </div>
-                    <div>
+                    {/*                     <div>
                         <Label htmlFor="includingsLbl" className="block text-sm font-medium leading-6">
                             What's Included
                         </Label>
                         <Quill referance={formData.includings} onChange={(value) => { setFormData({ ...formData, includings: value }) }} />
 
-                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "What is Included" part...' className='h-48 mb-12' onChange={(value) => {
+                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "What is Included" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, includings: value })
                         }} />
- */}
-                    </div>
+                    </div> */}
                     {/*                     <div>
                         <Label htmlFor="whatToExpectLbl" className="block text-sm font-medium leading-6">
                             What to Expect
@@ -203,17 +202,16 @@ export default function UpdateAdvertisement() {
                         }} />
 
                     </div> */}
-                    <div>
+                    {/*                     <div>
                         <Label htmlFor="additionalInfosLbl" className="block text-sm font-medium leading-6">
                             Additional Info
                         </Label>
                         <Quill referance={formData.additionalInfos} onChange={(value) => { setFormData({ ...formData, additionalInfos: value }) }} />
 
-                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Additional Infos" part...' className='h-48 mb-12' onChange={(value) => {
+                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Additional Infos" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, additionalInfos: value })
-                        }} /> */}
-
-                    </div>
+                        }} />
+                    </div> */}
                 </div>
 
                 <HR className='my-0' />

@@ -137,21 +137,21 @@ export default function CreateAdvertisement() {
                 <div className='flex flex-col gap-4 justify-between p-3 border-2 border-gray-300 border-dashed'>
                     <div>
                         <Label htmlFor="contentLbl" className="block text-sm font-medium leading-6">
-                            Overview
+                            Content
                         </Label>
-                        <ReactQuill theme='snow' placeholder='Write something for "Overview" part...' className='h-48 mb-12' onChange={(value) => {
+                        <ReactQuill theme='snow' placeholder='Write something for "Overview" part...' className='h-48 mb-12' required onChange={(value) => {
                             setFormData({ ...formData, content: value })
                         }} />
                     </div>
-                    <div>
+{/*                     <div>
                         <Label htmlFor="includingsLbl" className="block text-sm font-medium leading-6">
                             What's Included
                         </Label>
                         <ReactQuill theme='snow' placeholder='Write something for "What is Included" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, includings: value })
                         }} />
-                    </div>
-{/*                     <div>
+                    </div> */}
+                    {/*                     <div>
                         <Label htmlFor="whatToExpectLbl" className="block text-sm font-medium leading-6">
                             What to Expect
                         </Label>
@@ -159,14 +159,14 @@ export default function CreateAdvertisement() {
                             setFormData({ ...formData, whatToExpect: value })
                         }} />
                     </div> */}
-                    <div>
+                    {/*                     <div>
                         <Label htmlFor="additionalInfosLbl" className="block text-sm font-medium leading-6">
                             Additional Info
                         </Label>
                         <ReactQuill theme='snow' placeholder='Write something for "Additional Infos" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, additionalInfos: value })
                         }} />
-                    </div>
+                    </div> */}
                 </div>
 
                 <HR className='my-0' />

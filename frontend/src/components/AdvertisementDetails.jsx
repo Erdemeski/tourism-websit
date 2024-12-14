@@ -83,35 +83,35 @@ export default function AdvertisementDetails({ advertisement }) {
                         </Rating>
                     </div>
                 </div>
-                <div className='bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md p-3'>
-                    {advertisement && advertisement.content && hasContent(advertisement.content) && (
+                {advertisement && advertisement.content && hasContent(advertisement.content) && (
+                    <div className='bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md p-3'>
                         <div>
                             <h5 className="mx-1 text-2xl font-bold dark:text-white">Overview</h5>
                             <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.content }}></div>
                         </div>
-                    )}
-                    {advertisement && advertisement.includings && hasContent(advertisement.includings) && (
+                        {/*                     {advertisement && advertisement.includings && hasContent(advertisement.includings) && (
                         <div>
-                            <HR className='my-3' />
-                            <h5 className="mx-1 text-2xl font-bold dark:text-white">What's Included</h5>
-                            <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.includings }}></div>
+                        <HR className='my-3' />
+                        <h5 className="mx-1 text-2xl font-bold dark:text-white">What's Included</h5>
+                        <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.includings }}></div>
                         </div>
-                    )}
-                    {/*                     {advertisement && advertisement.whatToExpect && hasContent(advertisement.whatToExpect) && (
+                        )} */}
+                        {/*                     {advertisement && advertisement.whatToExpect && hasContent(advertisement.whatToExpect) && (
                         <div>
-                            <HR className='my-3' />
-                            <h5 className="mx-1 text-2xl font-bold dark:text-white">What To Expect</h5>
-                            <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.whatToExpect }}></div>
+                        <HR className='my-3' />
+                        <h5 className="mx-1 text-2xl font-bold dark:text-white">What To Expect</h5>
+                        <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.whatToExpect }}></div>
                         </div>
-                    )} */}
-                    {advertisement && advertisement.additionalInfos && hasContent(advertisement.additionalInfos) && (
+                        )} */}
+                        {/*                     {advertisement && advertisement.additionalInfos && hasContent(advertisement.additionalInfos) && (
                         <div>
-                            <HR className='my-3' />
-                            <h5 className="mx-1 text-2xl font-bold dark:text-white">Additional Info</h5>
-                            <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.additionalInfos }}></div>
+                        <HR className='my-3' />
+                        <h5 className="mx-1 text-2xl font-bold dark:text-white">Additional Info</h5>
+                        <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.additionalInfos }}></div>
                         </div>
-                    )}
-                </div>
+                        )} */}
+                    </div>
+                )}
                 <div className='bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md p-3'>
                     <h5 className="mx-1 text-2xl font-bold dark:text-white">Location</h5>
                     <div className='py-3 flex items-center'>
