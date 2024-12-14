@@ -14,11 +14,27 @@ export const createComment = async (req, res, next) => {
             advertisementId,
             userId,
         });
-        
+
         await newComment.save();
         res.status(200).json(newComment);
 
     } catch (error) {
         next(error);
     }
-}
+};
+
+export const getAdvertisementComments = async (req, res, next) => {
+
+    try {
+
+        const comments = await Comment.find({ advertisementId: req.params.advertisementId }).sort({
+            createdAt: -1,
+        });
+
+        res.status(200).json(comments);
+
+    } catch (error) {
+        next(error);
+    }
+
+};

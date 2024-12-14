@@ -316,7 +316,7 @@ export default function BookingForm({ advertisement }) {
                                 </div>
                             </Accordion.Title>
                             {currentUser &&
-                                <Accordion.Content>
+                                <Accordion.Content className='dark:bg-[rgb(22,26,29)]'>
                                     <div className="mb-2 flex items-center justify-between text-gray-900 dark:text-white">
                                         <div>
                                             {currency === 'try' && (
