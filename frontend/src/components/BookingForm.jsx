@@ -21,8 +21,6 @@ export default function BookingForm({ advertisement }) {
         setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
     };
 
-    console.log(formData);
-
     const [previousPrice, setPreviousPrice] = useState();
     const [currentPrice, setCurrentPrice] = useState();
     const [childDiscount, setChildDiscount] = useState();
@@ -74,7 +72,6 @@ export default function BookingForm({ advertisement }) {
         const current = parseFloat(currentPrice.replace(',', '.'));
         const previous = parseFloat(previousPrice.replace(',', '.'));
         const discountRate = ((previous - current) / previous) * 100;
-        console.log(discountRate);
         return Math.ceil(discountRate);
     }
 

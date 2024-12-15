@@ -13,8 +13,6 @@ export default function AdvertisementDetailsPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [advertisement, setAdvertisement] = useState(null);
-    console.log(advertisement);
-
 
     useEffect(() => {
         const fetchAdvertisement = async () => {
