@@ -50,9 +50,15 @@ export default function DashboardMain() {
 
         const fetchComments = async () => {
             try {
-
+                const res = await fetch('/api/comment/getcomments?limit=5')
+                const data = await res.json()
+                if (res.ok) {
+                    setComments(data.comments)
+                    setTotalComments(data.totalComments)
+                    setLastMonthComments(data.lastMonthComments)
+                }
             } catch (error) {
-
+                console.log(error.message);
             }
         };
 
