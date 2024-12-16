@@ -8,25 +8,52 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Quill from '../components/Quill';
+import { Tiptap } from "../components/Tiptap";
+import '../styles/tiptapCss.css'
 
 export default function UpdateAdvertisement() {
+
+/*     const modules = {
+        toolbar: [
+            [{ font: [] }],
+            [{ size: ["small", false, "large", "huge"] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ color: [] }, { background: [] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ align: [] }],
+            ["blockquote"],
+            ["link"],
+            ["clean"],
+        ],
+    };
+
+    const formats = [
+        "font",
+        "size",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "color",
+        "background",
+        "list",
+        "bullet",
+        "align",
+        "blockquote",
+        "link",
+    ];
+ */
 
     const [file, setFile] = useState(null);
     const [imageUploadProgress, setImageUploadProgress] = useState(null);
     const [imageUploadError, setImageUploadError] = useState(null);
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({ content: "" });
     const [publishError, setPublishError] = useState(null);
     const { advertisementId } = useParams();
     const { currentUser } = useSelector((state) => state.user);
 
     const navigate = useNavigate();
 
-    /*     const [contentHTML, setContentHTML] = useState('');
-        const [includingsHTML, setIncludingsHTML] = useState('');
-        const [whatToExpectHTML, setWhatToExpectHTML] = useState('');
-        const [additionalInfosHTML, setAdditionalInfosHTML] = useState('');
-     */
     useEffect(() => {
         try {
             const fetchAdvertisement = async () => {
@@ -48,11 +75,7 @@ export default function UpdateAdvertisement() {
             console.log(error.message);
         }
     }, [advertisementId]);
-    /*     setContentHTML(formData.content);
-        setIncludingsHTML(formData.includings);
-        setWhatToExpectHTML(formData.whatToExpect);
-        setAdditionalInfosHTML(formData.additionalInfos);
-     */
+
     const handleUploadImage = async () => {
         try {
             if (!file) {
@@ -118,7 +141,7 @@ export default function UpdateAdvertisement() {
             <h1 className='text-center text-3xl my-7 font-semibold'>Update the advertisement</h1>
             <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
                 <div className='flex items-center gap-2'>
-                    <Checkbox id='isActive' checked={formData.isActive} onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })} />
+                    <Checkbox id='isActive' checked={formData.isActive || false} onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })} />
                     <Label className={`p-0.5 block text-xl font-medium leading-6 ${formData.isActive ? '' : 'bg-red-500 rounded-md'}`} htmlFor="isActiveLbl">
                         {formData.isActive ? "Visible" : "NOT Visible"}
                     </Label>
@@ -174,44 +197,66 @@ export default function UpdateAdvertisement() {
                         <Label htmlFor="contentLbl" className="block text-sm font-medium leading-6">
                             Content
                         </Label>
-                        {/*                         <Quill referance={formData.content} onChange={(value) => { setFormData({ ...formData, content: value }) }} />
- */}
-                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Overview" part...' className='h-72 mb-12' required onChange={(value) => {
+                        <div>
+                            <Tiptap
+                                initialContent={formData.content}
+                                onContentChange={(newContent) => setFormData((prev) => ({ ...prev, content: newContent }))}
+                            />
+                        </div>
+
+                        {/*                         <ReactQuill theme='snow' value={contentHTML || ''} placeholder='Write something for "Overview" part...' modules={modules} formats={formats} className='h-72 mb-12' required onChange={(value) => {
                             setFormData({ ...formData, content: value })
                         }} />
-
+ */}
                     </div>
-                    {/*                     <div>
+                    <div>
                         <Label htmlFor="includingsLbl" className="block text-sm font-medium leading-6">
                             What's Included
                         </Label>
-                        <Quill referance={formData.includings} onChange={(value) => { setFormData({ ...formData, includings: value }) }} />
+                        <div>
+                            <Tiptap
+                                initialContent={formData.includings}
+                                onContentChange={(newContent) => setFormData((prev) => ({ ...prev, includings: newContent }))}
+                            />
+                        </div>
 
-                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "What is Included" part...' className='h-48 mb-12' onChange={(value) => {
+                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "What is Included" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, includings: value })
                         }} />
-                    </div> */}
-                    {/*                     <div>
+ */}
+                    </div>
+                    <div>
                         <Label htmlFor="whatToExpectLbl" className="block text-sm font-medium leading-6">
                             What to Expect
                         </Label>
-                        <Quill referance={formData.whatToExpect} onChange={(value) => { setFormData({ ...formData, whatToExpect: value }) }} />
+                        <div>
+                            <Tiptap
+                                initialContent={formData.whatToExpect}
+                                onContentChange={(newContent) => setFormData((prev) => ({ ...prev, whatToExpect: newContent }))}
+                            />
+                        </div>
 
-                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "What To Expect" part...' className='h-48 mb-12' onChange={(value) => {
+                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "What To Expect" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, whatToExpect: value })
                         }} />
-
-                    </div> */}
-                    {/*                     <div>
+ */}
+                    </div>
+                    <div>
                         <Label htmlFor="additionalInfosLbl" className="block text-sm font-medium leading-6">
                             Additional Info
                         </Label>
-                        <Quill referance={formData.additionalInfos} onChange={(value) => { setFormData({ ...formData, additionalInfos: value }) }} />
+                        <div>
+                            <Tiptap
+                                initialContent={formData.additionalInfos}
+                                onContentChange={(newContent) => setFormData((prev) => ({ ...prev, additionalInfos: newContent }))}
+                            />
+                        </div>
 
-                        <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Additional Infos" part...' className='h-48 mb-12' onChange={(value) => {
+                        {/*                         <ReactQuill theme='snow' value={formData.content} placeholder='Write something for "Additional Infos" part...' className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, additionalInfos: value })
                         }} />
-                    </div> */}
+ */}
+                    </div>
                 </div>
 
                 <HR className='my-0' />
@@ -219,46 +264,46 @@ export default function UpdateAdvertisement() {
 
                 <div className='flex flex-col gap-2 justify-between pb-3 pt-0'>
                     <div className='flex items-center gap-2'>
-                        <Checkbox id='payLater' checked={formData.isPayLater} onChange={(e) => setFormData({ ...formData, isPayLater: e.target.checked })} />
+                        <Checkbox id='payLater' checked={formData.isPayLater || false} onChange={(e) => setFormData({ ...formData, isPayLater: e.target.checked })} />
                         <Label className={`p-0.5 block text-lg font-medium leading-6 `} htmlFor="payLaterLbl">
                             Reserve now and pay later
                         </Label>
                     </div>
                     <div className='flex items-center gap-2'>
-                        <Checkbox id='mobileTicket' checked={formData.isMobileTicket} onChange={(e) => setFormData({ ...formData, isMobileTicket: e.target.checked })} />
+                        <Checkbox id='mobileTicket' checked={formData.isMobileTicket || false} onChange={(e) => setFormData({ ...formData, isMobileTicket: e.target.checked })} />
                         <Label className={`p-0.5 block text-lg font-medium leading-6 `} htmlFor="mobileTicketLbl">
                             Mobile ticket
                         </Label>
                     </div>
                     <div className='flex items-center gap-2'>
-                        <Checkbox id='pickUp' checked={formData.isPickUp} onChange={(e) => setFormData({ ...formData, isPickUp: e.target.checked })} />
+                        <Checkbox id='pickUp' checked={formData.isPickUp || false} onChange={(e) => setFormData({ ...formData, isPickUp: e.target.checked })} />
                         <Label className={`p-0.5 block text-lg font-medium leading-6 '}`} htmlFor="pickUpLbl">
                             Pickup offered
                         </Label>
                     </div>
                     <div className='flex items-center gap-2'>
-                        <Checkbox id='duration' checked={formData.isDuration} onChange={(e) => setFormData({ ...formData, isDuration: e.target.checked })} />
+                        <Checkbox id='duration' checked={formData.isDuration || false} onChange={(e) => setFormData({ ...formData, isDuration: e.target.checked })} />
                         <Label className={`p-0.5 block text-lg font-medium leading-6 `} htmlFor="durationLbl">
                             Duration:
                         </Label>
                         <TextInput sizing='sm' type='text' placeholder='...(approx.)' id='durationInfo' value={formData.durationInfo} disabled={!formData.isDuration} onChange={(e) => setFormData({ ...formData, durationInfo: e.target.value })} />
                     </div>
                     <div className='flex items-center gap-2'>
-                        <Checkbox id='startTime' checked={formData.isStartTime} onChange={(e) => setFormData({ ...formData, isStartTime: e.target.checked })} />
+                        <Checkbox id='startTime' checked={formData.isStartTime || false} onChange={(e) => setFormData({ ...formData, isStartTime: e.target.checked })} />
                         <Label className={`p-0.5 block text-lg font-medium leading-6 '}`} htmlFor="startTimeLbl">
                             Start time:
                         </Label>
                         <TextInput sizing='sm' type='text' placeholder='..:..am/pm' id='startTimeInfo' value={formData.startTimeInfo} disabled={!formData.isStartTime} onChange={(e) => setFormData({ ...formData, startTimeInfo: e.target.value })} />
                     </div>
                     <div className='flex items-center gap-2'>
-                        <Checkbox id='isEndTime' checked={formData.isEndTime} onChange={(e) => setFormData({ ...formData, isEndTime: e.target.checked })} />
+                        <Checkbox id='isEndTime' checked={formData.isEndTime || false} onChange={(e) => setFormData({ ...formData, isEndTime: e.target.checked })} />
                         <Label className={`p-0.5 block text-lg font-medium leading-6 '}`} htmlFor="endTimeLbl">
                             End time:
                         </Label>
                         <TextInput sizing='sm' type='text' placeholder='..:..am/pm' id='endTimeInfo' value={formData.endTimeInfo} disabled={!formData.isEndTime} onChange={(e) => setFormData({ ...formData, endTimeInfo: e.target.value })} />
                     </div>
                     <div className='flex items-center gap-2'>
-                        <Checkbox id='offeredLng' checked={formData.isOfferedLng} onChange={(e) => setFormData({ ...formData, isOfferedLng: e.target.checked })} />
+                        <Checkbox id='offeredLng' checked={formData.isOfferedLng || false} onChange={(e) => setFormData({ ...formData, isOfferedLng: e.target.checked })} />
                         <Label className={`p-0.5 block text-lg font-medium leading-6 '}`} htmlFor="offeredLngLbl">
                             Offered in:
                         </Label>

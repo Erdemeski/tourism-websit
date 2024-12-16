@@ -32,20 +32,18 @@ const advertisementSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    /*
     includings: {
         type: String,
         default: null
     },
-         whatToExpect: {
-            type: String,
-            default: null
-        },
-        additionalInfos: {
-            type: String,
-            default: null
-        },
-        */
+    whatToExpect: {
+        type: String,
+        default: null
+    },
+    additionalInfos: {
+        type: String,
+        default: null
+    },
     isPayLater: {
         type: Boolean,
         required: true,

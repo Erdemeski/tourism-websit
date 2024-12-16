@@ -1,14 +1,18 @@
 import { HR, Rating } from 'flowbite-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { IoLocationSharp } from "react-icons/io5"
 import { useSelector } from 'react-redux';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import CommentSection from './CommentSection';
+import '../styles/home.css'
 
 
 
 export default function AdvertisementDetails({ advertisement }) {
+
+    const [comments, setComments] = useState([]);
+    const commentSectionRef = useRef(null);
 
     const hasContent = (htmlString) => {
         if (!htmlString) return false;
@@ -52,6 +56,26 @@ export default function AdvertisementDetails({ advertisement }) {
         }
     })
 
+    useEffect(() => {
+        const getComments = async () => {
+            try {
+                const res = await fetch(`/api/comment/getAdvertisementComments/${advertisement._id}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setComments(data);
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+        getComments();
+    }, [advertisement._id]);
+
+    const scrollToComments = () => {
+        if (commentSectionRef.current) {
+            commentSectionRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     return (
         <div className="rounded-lg shadow-md  bg-white dark:bg-gray-800">
@@ -78,8 +102,8 @@ export default function AdvertisementDetails({ advertisement }) {
                             <Rating.Star />
                             <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">4.95</p>
                             <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-                            <a href="#" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
-                                73 reviews
+                            <a onClick={scrollToComments} className="cursor-pointer text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
+                                {comments.length} reviews
                             </a>
                         </Rating>
                     </div>
@@ -88,29 +112,29 @@ export default function AdvertisementDetails({ advertisement }) {
                     <div className='bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md p-3'>
                         <div>
                             <h5 className="mx-1 text-2xl font-bold dark:text-white">Overview</h5>
-                            <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.content }}></div>
+                            <div className='py-3 mx-auto w-full post-content dark:text-white' dangerouslySetInnerHTML={{ __html: advertisement.content }}></div>
                         </div>
-                        {/*                     {advertisement && advertisement.includings && hasContent(advertisement.includings) && (
-                        <div>
-                        <HR className='my-3' />
-                        <h5 className="mx-1 text-2xl font-bold dark:text-white">What's Included</h5>
-                        <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.includings }}></div>
-                        </div>
-                        )} */}
-                        {/*                     {advertisement && advertisement.whatToExpect && hasContent(advertisement.whatToExpect) && (
-                        <div>
-                        <HR className='my-3' />
-                        <h5 className="mx-1 text-2xl font-bold dark:text-white">What To Expect</h5>
-                        <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.whatToExpect }}></div>
-                        </div>
-                        )} */}
-                        {/*                     {advertisement && advertisement.additionalInfos && hasContent(advertisement.additionalInfos) && (
-                        <div>
-                        <HR className='my-3' />
-                        <h5 className="mx-1 text-2xl font-bold dark:text-white">Additional Info</h5>
-                        <div className='py-3 mx-auto w-full post-content' dangerouslySetInnerHTML={{ __html: advertisement.additionalInfos }}></div>
-                        </div>
-                        )} */}
+                        {advertisement && advertisement.includings && hasContent(advertisement.includings) && (
+                            <div>
+                                <HR className='my-3' />
+                                <h5 className="mx-1 text-2xl font-bold dark:text-white">What's Included</h5>
+                                <div className='py-3 mx-auto w-full post-content dark:text-white' dangerouslySetInnerHTML={{ __html: advertisement.includings }}></div>
+                            </div>
+                        )}
+                        {advertisement && advertisement.whatToExpect && hasContent(advertisement.whatToExpect) && (
+                            <div>
+                                <HR className='my-3' />
+                                <h5 className="mx-1 text-2xl font-bold dark:text-white">What To Expect</h5>
+                                <div className='py-3 mx-auto w-full post-content dark:text-white' dangerouslySetInnerHTML={{ __html: advertisement.whatToExpect }}></div>
+                            </div>
+                        )}
+                        {advertisement && advertisement.additionalInfos && hasContent(advertisement.additionalInfos) && (
+                            <div>
+                                <HR className='my-3' />
+                                <h5 className="mx-1 text-2xl font-bold dark:text-white">Additional Info</h5>
+                                <div className='py-3 mx-auto w-full post-content dark:text-white' dangerouslySetInnerHTML={{ __html: advertisement.additionalInfos }}></div>
+                            </div>
+                        )}
                     </div>
                 )}
                 <div className='bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md p-3'>
@@ -133,7 +157,7 @@ export default function AdvertisementDetails({ advertisement }) {
                         </MapContainer>
                     </div>
                 </div>
-                <div className='bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md p-3'>
+                <div ref={commentSectionRef} className='bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md p-3'>
                     <CommentSection advertisementId={advertisement._id} />
                 </div>
             </div>

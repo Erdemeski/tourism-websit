@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-/*   background: rgba(134, 134, 134, 0.5);
+  /*   background: rgba(134, 134, 134, 0.5);
  */
   border-radius: 1%;
   z-index: 10;
@@ -81,4 +81,136 @@
     position: absolute;
     margin-top: 100%;
   }
+}
+
+/* Quill'in temel stillerini destekleme */
+.post-content {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* Kalın yazı */
+.post-content strong {
+  font-weight: bold;
+}
+
+/* İtalik yazı */
+.post-content em {
+  font-style: italic;
+}
+
+/* Altı çizili yazı */
+.post-content u {
+  text-decoration: underline;
+}
+
+/* Üstü çizili yazı */
+.post-content s {
+  text-decoration: line-through;
+}
+
+/* Liste stilleri */
+.post-content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.post-content ol {
+  list-style-type: decimal;
+  margin-left: 20px;
+}
+
+/* Linkler */
+.post-content a {
+  color: #0ea5e9;
+  text-decoration: none;
+}
+
+.post-content a:hover {
+  text-decoration: underline;
+}
+
+/* Blok alıntı */
+.post-content blockquote {
+  border-left: 4px solid #ccc;
+  margin: 10px 0;
+  padding-left: 10px;
+  color: #555;
+  font-style: italic;
+}
+
+/* Kod blokları */
+.post-content pre {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: "Courier New", monospace;
+  overflow-x: auto;
+}
+
+.post-content code {
+  background-color: #f1f1f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: "Courier New", monospace;
+}
+
+/* Başlıklar */
+.post-content h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.post-content h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.post-content h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+/* Hizalama için (align) */
+.ql-align-center {
+  text-align: center;
+}
+
+.ql-align-right {
+  text-align: right;
+}
+
+.ql-align-justify {
+  text-align: justify;
+}
+
+/* Yazı boyutları (size) */
+.ql-size-small {
+  font-size: 0.75em;
+}
+
+.ql-size-large {
+  font-size: 1.5em;
+}
+
+.ql-size-huge {
+  font-size: 2.5em;
+}
+
+/* Varsayılan yazı boyutuna uyum */
+.ql-size-normal {
+  font-size: 1em;
+}
+
+.ql-font-sans-serif {
+  font-family: 'Arial', sans-serif;
+}
+
+.ql-font-serif {
+  font-family: 'Georgia', serif;
+}
+
+.ql-font-monospace {
+  font-family: 'Courier New', monospace;
 }

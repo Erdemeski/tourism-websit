@@ -10,6 +10,36 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateAdvertisement() {
 
+    const modules = {
+        toolbar: [
+            [{ font: [] }],
+            [{ size: ["small", false, "large", "huge"] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ color: [] }, { background: [] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ align: [] }],
+            ["blockquote"],
+            ["link"],
+            ["clean"],
+        ],
+    };
+
+    const formats = [
+        "font",
+        "size",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "color",
+        "background",
+        "list",
+        "bullet",
+        "align",
+        "blockquote",
+        "link",
+    ];
+
     const [file, setFile] = useState(null);
     const [imageUploadProgress, setImageUploadProgress] = useState(null);
     const [imageUploadError, setImageUploadError] = useState(null);
@@ -139,34 +169,34 @@ export default function CreateAdvertisement() {
                         <Label htmlFor="contentLbl" className="block text-sm font-medium leading-6">
                             Content
                         </Label>
-                        <ReactQuill theme='snow' placeholder='Write something for "Overview" part...' className='h-48 mb-12' required onChange={(value) => {
+                        <ReactQuill theme='snow' placeholder='Write something for "Overview" part...' modules={modules} formats={formats} className='h-48 mb-12' required onChange={(value) => {
                             setFormData({ ...formData, content: value })
                         }} />
                     </div>
-{/*                     <div>
+                    <div>
                         <Label htmlFor="includingsLbl" className="block text-sm font-medium leading-6">
                             What's Included
                         </Label>
-                        <ReactQuill theme='snow' placeholder='Write something for "What is Included" part...' className='h-48 mb-12' onChange={(value) => {
+                        <ReactQuill theme='snow' placeholder='Write something for "What is Included" part...' modules={modules} formats={formats} className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, includings: value })
                         }} />
-                    </div> */}
-                    {/*                     <div>
+                    </div>
+                    <div>
                         <Label htmlFor="whatToExpectLbl" className="block text-sm font-medium leading-6">
                             What to Expect
                         </Label>
-                        <ReactQuill theme='snow' placeholder='Write something for "What To Expect" part...' className='h-48 mb-12' onChange={(value) => {
+                        <ReactQuill theme='snow' placeholder='Write something for "What To Expect" part...' modules={modules} formats={formats} className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, whatToExpect: value })
                         }} />
-                    </div> */}
-                    {/*                     <div>
+                    </div>
+                    <div>
                         <Label htmlFor="additionalInfosLbl" className="block text-sm font-medium leading-6">
                             Additional Info
                         </Label>
-                        <ReactQuill theme='snow' placeholder='Write something for "Additional Infos" part...' className='h-48 mb-12' onChange={(value) => {
+                        <ReactQuill theme='snow' placeholder='Write something for "Additional Infos" part...' modules={modules} formats={formats} className='h-48 mb-12' onChange={(value) => {
                             setFormData({ ...formData, additionalInfos: value })
                         }} />
-                    </div> */}
+                    </div>
                 </div>
 
                 <HR className='my-0' />

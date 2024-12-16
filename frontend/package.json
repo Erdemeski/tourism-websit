@@ -11,6 +11,12 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
+    "@tiptap/core": "^2.10.3",
+    "@tiptap/extension-placeholder": "^2.10.3",
+    "@tiptap/extension-underline": "^2.10.3",
+    "@tiptap/pm": "^2.10.3",
+    "@tiptap/react": "^2.10.3",
+    "@tiptap/starter-kit": "^2.10.3",
     "firebase": "^10.14.1",
     "flowbite-react": "^0.10.2",
     "i18next": "^24.0.2",

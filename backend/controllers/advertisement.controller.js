@@ -1,5 +1,6 @@
 import Advertisement from "../models/advertisement.model.js";
-import { errorHandler } from "../utils/error.js"
+import { errorHandler } from "../utils/error.js";
+import Comment from "../models/comment.model.js";
 
 export const create = async (req, res, next) => {
     if (!req.user.isAdmin) {
@@ -73,6 +74,7 @@ export const deleteAdvertisement = async (req, res, next) => {
         return next(errorHandler(403, 'You are not allowed to delete this advertisement'));
     }
     try {
+        await Comment.deleteMany({ advertisementId: req.params.advertisementId });
         await Advertisement.findByIdAndDelete(req.params.advertisementId);
         res.status(200).json('The advertisement has been deleted');
     } catch (error) {
@@ -96,11 +98,9 @@ export const updateAdvertisement = async (req, res, next) => {
                 category: req.body.category,
                 image: req.body.image,
                 content: req.body.content,
-                /*
                 includings: req.body.includings,
                 whatToExpect: req.body.whatToExpect,
                 additionalInfos: req.body.additionalInfos,
-                */
                 isPayLater: req.body.isPayLater,
                 isMobileTicket: req.body.isMobileTicket,
                 isPickUp: req.body.isPickUp,
